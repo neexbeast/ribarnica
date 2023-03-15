@@ -1,0 +1,9 @@
+npm init u server fajl da se napravi package json fajl
+nodemon index.js u script
+
+
+
+promijeniti da kupi stejtove logina na dugme 
+
+
+
