@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
 const Home = () => {
+  /**
+   * the way it is currently implemented, we are updating the state on every key pressed
+   * this has to be changed to get all the states on submit
+   */
   const [proizvod, setProizvod] = useState("");
   const [kolicina, setKolicina] = useState("");
   const [ciscenje, setCiscenje] = useState(false);
@@ -55,10 +59,10 @@ const Home = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
                   <option>Izaberite proizvod</option>
-                  <option value="saran">Saran</option>
-                  <option value="pastrmka">Pastrmka</option>
-                  <option value="oslic">Oslic</option>
-                  <option value="tolstolobik">Tolstolobik</option>
+                  <option value="Saran">Saran</option>
+                  <option value="Pastrmka">Pastrmka</option>
+                  <option value="Oslic">Oslic</option>
+                  <option value="Tolstolobik">Tolstolobik</option>
                 </select>
               </div>
               <div>

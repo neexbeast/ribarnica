@@ -6,6 +6,7 @@ const Narudzbe = new mongoose.Schema(
     kolicina: { type: Number, required: true, unique: true },
     ciscenje: { type: Boolean, required: true },
     pecenje: { type: Boolean, required: true },
+    cijena: { type: Number },
   },
   { collection: "narudzbe" }
 );
