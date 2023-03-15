@@ -4,11 +4,13 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user.model");
 const Narudzbe = require("./models/narudzbe.model");
+const Cijene = require("./models/cijene.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 module.exports = User;
 module.exports = Narudzbe;
+module.exports = Cijene;
 
 // enables cors
 app.use(cors());
@@ -44,11 +46,33 @@ app.post("/api/naruci", async (req, res) => {
       kolicina: req.body.kolicina,
       ciscenje: req.body.ciscenje,
       pecenje: req.body.pecenje,
+      cijena: req.body.cijena,
+      brojNarudzbe: req.body.brojNarudzbe,
     });
     res.json({ status: "ok" });
   } catch (err) {
     console.log("greska", err);
-    res.json({ status: "error", error: "Duplicate email" });
+    res.json({ status: "error", error: "BIG ERROR" });
+  }
+});
+
+app.get("/api/svenarudzbe", async (req, res) => {
+  try {
+    const narudzbe = await Narudzbe.find();
+    console.log("NARUDZBE", narudzbe);
+    return res.json(narudzbe);
+  } catch (err) {
+    return res.json({ status: "error", error: err });
+  }
+});
+
+app.get("/api/cijene", async (req, res) => {
+  try {
+    const cijene = await Cijene.find();
+    console.log("cijene", cijene);
+    return res.json(cijene);
+  } catch (err) {
+    return res.json({ status: "error", error: err });
   }
 });
 

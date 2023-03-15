@@ -6,14 +6,55 @@ const Home = () => {
    * this has to be changed to get all the states on submit
    */
   const [proizvod, setProizvod] = useState("");
-  const [kolicina, setKolicina] = useState(0);
+  const [kolicina, setKolicina] = useState(1);
   const [ciscenje, setCiscenje] = useState(false);
   const [pecenje, setPecenje] = useState(false);
+  const [cijena, setCijena] = useState("");
+  const [sveCijene, setSveCijene] = useState([]);
+
+  useEffect(() => {
+    calculatePrice();
+  }, [proizvod, kolicina, ciscenje, pecenje]);
+
+  useEffect(() => {
+    getPrices();
+  }, []);
 
   //TODO: Dodati date picker i upisati ga u bazu
 
+  const getPrices = async () => {
+    console.log("aloalo");
+    const res = await fetch("http://localhost:5513/api/cijene", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+    console.log("cijene", data);
+
+    return data;
+  };
+
+  const getNarudzbe = async () => {
+    console.log("a");
+    const res = await fetch("http://localhost:5513/api/svenarudzbe", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+    console.log("reeees", data);
+
+    return data;
+  };
+
   const naruci = async (e: any) => {
     e.preventDefault();
+    const brojNarudzbe = Math.floor(Math.random() * 10000);
     const response = await fetch("http://localhost:5513/api/naruci", {
       method: "POST",
       headers: {
@@ -24,12 +65,12 @@ const Home = () => {
         kolicina,
         ciscenje,
         pecenje,
+        cijena,
+        brojNarudzbe,
       }),
     });
 
     const data = await response.json();
-
-    console.log("data", data);
   };
 
   // Temporary hard coded prices for each product
@@ -52,6 +93,7 @@ const Home = () => {
     if (pecenje) {
       totalPrice += kolicina * 1.5;
     }
+    setCijena(totalPrice.toFixed(2));
     return totalPrice.toFixed(2);
   };
 
@@ -95,6 +137,7 @@ const Home = () => {
                 <input
                   type="number"
                   // step enables decimal places
+                  value={kolicina}
                   step=".01"
                   name="kolicina"
                   onChange={(e: any) => setKolicina(e.target.value)}
@@ -134,14 +177,19 @@ const Home = () => {
                   />
                 </div>
               </div>
-              <div className="text-white text-sm">
-                Cijena = {calculatePrice()} KM
-              </div>
+              <div className="text-white text-sm">Cijena = {cijena} KM</div>
               <button
                 type="submit"
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Naruci
+              </button>
+              <button
+                type="submit"
+                onClick={() => getNarudzbe()}
+                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              >
+                Povuci me za kurac
               </button>
             </form>
           </div>
