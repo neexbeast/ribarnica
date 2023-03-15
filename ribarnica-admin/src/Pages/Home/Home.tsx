@@ -6,7 +6,7 @@ const Home = () => {
    * this has to be changed to get all the states on submit
    */
   const [proizvod, setProizvod] = useState("");
-  const [kolicina, setKolicina] = useState("");
+  const [kolicina, setKolicina] = useState(0);
   const [ciscenje, setCiscenje] = useState(false);
   const [pecenje, setPecenje] = useState(false);
 
@@ -30,7 +30,34 @@ const Home = () => {
     const data = await response.json();
 
     console.log("data", data);
+
   };
+
+
+  // Temporary hard coded prices for each product
+  const prices: Record<string, number> = {
+    Saran: 15,
+    Pastrmka: 8,
+    Oslic: 13,
+    Tolstolobik: 10,
+  };
+
+
+  // Calculating total price by type of product and amount
+  const calculatePrice = () => {
+    let totalPrice: number = 0
+    if (proizvod && kolicina) {
+      totalPrice = prices[proizvod] * kolicina
+    }
+    if (ciscenje) {
+      totalPrice += kolicina * 1;
+    }
+    if (pecenje) {
+      totalPrice += kolicina * 1.5;
+    }
+    return totalPrice.toFixed(2)
+  }
+
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -110,6 +137,9 @@ const Home = () => {
                     className="ml-3 w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                   />
                 </div>
+              </div>
+              <div className="text-white text-sm">
+                Cijena = {calculatePrice()} KM
               </div>
               <button
                 type="submit"
