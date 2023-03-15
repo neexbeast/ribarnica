@@ -17,7 +17,8 @@ const Home = () => {
   }, [proizvod, kolicina, ciscenje, pecenje]);
 
   useEffect(() => {
-    getPrices();
+    console.log(sveCijene);
+    // setSveCijene();
   }, []);
 
   //TODO: Dodati date picker i upisati ga u bazu
@@ -32,6 +33,7 @@ const Home = () => {
     });
 
     const data = await res.json();
+    setSveCijene(data);
     console.log("cijene", data);
 
     return data;
