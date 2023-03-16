@@ -7,7 +7,8 @@ const Narudzbe = new mongoose.Schema(
     kolicina: { type: Number, required: true },
     ciscenje: { type: Boolean, required: true },
     pecenje: { type: Boolean, required: true },
-    cijena: { type: Number },
+    cijena: { type: Number, required: true },
+    imePrezime: { type: String, required: true },
   },
   { collection: "narudzbe" }
 );

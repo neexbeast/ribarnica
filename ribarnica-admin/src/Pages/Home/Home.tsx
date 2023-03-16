@@ -9,6 +9,7 @@ const Home = () => {
   const [kolicina, setKolicina] = useState(1);
   const [ciscenje, setCiscenje] = useState(false);
   const [pecenje, setPecenje] = useState(false);
+  const [imePrezime, setImePrezime] = useState("");
   const [cijena, setCijena] = useState("");
   const [sveCijene, setSveCijene] = useState([]);
 
@@ -39,21 +40,6 @@ const Home = () => {
     return data;
   };
 
-  const getNarudzbe = async () => {
-    console.log("a");
-    const res = await fetch("http://localhost:5513/api/svenarudzbe", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await res.json();
-    console.log("reeees", data);
-
-    return data;
-  };
-
   const naruci = async (e: any) => {
     e.preventDefault();
     const brojNarudzbe = Math.floor(Math.random() * 10000);
@@ -69,6 +55,7 @@ const Home = () => {
         pecenje,
         cijena,
         brojNarudzbe,
+        imePrezime,
       }),
     });
 
@@ -147,6 +134,20 @@ const Home = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
               </div>
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  Ime i prezime
+                </label>
+                <input
+                  type="text"
+                  // step enables decimal places
+                  value={imePrezime}
+                  name="kolicina"
+                  onChange={(e: any) => setImePrezime(e.target.value)}
+                  id="kolicina"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                />
+              </div>
               <div className="flex items-start">
                 <div className="flex items-center h-5">
                   <div className=" text-sm">
@@ -185,13 +186,6 @@ const Home = () => {
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Naruci
-              </button>
-              <button
-                type="submit"
-                onClick={() => getNarudzbe()}
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Povuci me za kurac
               </button>
             </form>
           </div>

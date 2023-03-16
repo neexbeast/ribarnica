@@ -48,6 +48,7 @@ app.post("/api/naruci", async (req, res) => {
       pecenje: req.body.pecenje,
       cijena: req.body.cijena,
       brojNarudzbe: req.body.brojNarudzbe,
+      imePrezime: req.body.imePrezime,
     });
     res.json({ status: "ok" });
   } catch (err) {
