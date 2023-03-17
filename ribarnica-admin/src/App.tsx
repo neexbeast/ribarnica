@@ -6,6 +6,7 @@ import "./App.css";
 import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home";
+import Naruci from "./Pages/Naruci/Naruci";
 import Narudzbe from "./Pages/Narudzbe/Narudzbe";
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/naruci" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/naruci" element={<Naruci />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/narudzbe" element={<Narudzbe />} />

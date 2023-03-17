@@ -13,8 +13,6 @@ const Narudzbe = () => {
       });
 
       const data = await res.json();
-      console.log("data", data);
-      const dataTest = data.map((el: any) => console.log(el.brojNarudzbe));
       setSveNarudzbe(data);
 
       return data;
@@ -38,16 +36,10 @@ const Narudzbe = () => {
   //   return data;
   // };
   return (
-    <div className="bg-gray-50 dark:bg-gray-900">
+    <div className="flex flex-wrap">
       {sveNarudzbe.map((el) => (
-        <div
-          key={el.brojNarudzbe}
-          className="flex flex-col  h-72 px-6 py-8 mx-auto h-screen"
-        >
-          <a
-            href="#"
-            className="pl-25 block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-          >
+        <div key={el.brojNarudzbe} className="ml-20 ">
+          <div className="max-w-sm p-6 h-64 w-72 border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {el.imePrezime} {el.brojNarudzbe}
             </h3>
@@ -67,7 +59,7 @@ const Narudzbe = () => {
             <h3 className="mb-2 text-2xl flex justify-end font-bold tracking-tight text-gray-900 dark:text-white">
               Cijena: {el.cijena} KM
             </h3>
-          </a>
+          </div>
         </div>
       ))}
     </div>
