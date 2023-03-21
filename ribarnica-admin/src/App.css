@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.test-class {
+  background-color: blue;
+}
+
+.minus-margin {
+  margin-top: -41px;
+  margin-right: 10px;
+}

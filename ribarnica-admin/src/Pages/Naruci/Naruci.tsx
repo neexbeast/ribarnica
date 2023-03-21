@@ -14,6 +14,10 @@ const Home = () => {
   const [cijena, setCijena] = useState("");
   const [sveCijene, setSveCijene] = useState([]);
   const [datum, setDatum] = useState("");
+  const [vrijeme, setVrijeme] = useState("9:30");
+  const [isporuceno, setIsporuceno] = useState(false);
+  const [spremljeno, setSpremljeno] = useState(false);
+  const [otkazano, setOtkazano] = useState(false);
 
   const navigate = useNavigate();
 
@@ -59,6 +63,11 @@ const Home = () => {
         cijena,
         brojNarudzbe,
         imePrezime,
+        datum,
+        vrijeme,
+        isporuceno,
+        spremljeno,
+        otkazano,
       }),
     });
 
@@ -158,8 +167,15 @@ const Home = () => {
                   </label>
                   <input
                     type="date"
-                    value={datum}
-                    onChange={(e) => setDatum(e.target.value)}
+                    // value={datum}
+                    // since html prints the selected date as yyyy-mm-dd, i used split to break down the date and then pyyyrint them out as I like
+                    onChange={(e) => {
+                      const datum = e.target.value.split("-");
+                      const noviDatum =
+                        datum[2] + "/" + datum[1] + "/" + datum[0];
+                      setDatum(noviDatum);
+                      return datum;
+                    }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-50  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Select date"
                   />
@@ -171,6 +187,8 @@ const Home = () => {
                   <select
                     className="bg-gray-50 border border-gray-300 ml-20 w-40 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-50  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Select date"
+                    value={vrijeme}
+                    onChange={(e) => setVrijeme(e.target.value)}
                   >
                     <option value="9:00">9:00</option>
                     <option value="9:30">9:30</option>

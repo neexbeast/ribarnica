@@ -49,6 +49,11 @@ app.post("/api/naruci", async (req, res) => {
       cijena: req.body.cijena,
       brojNarudzbe: req.body.brojNarudzbe,
       imePrezime: req.body.imePrezime,
+      datum: req.body.datum,
+      vrijeme: req.body.vrijeme,
+      isporuceno: req.body.isporuceno,
+      spremljeno: req.body.spremljeno,
+      otkaznao: req.body.otkazano,
     });
     res.json({ status: "ok" });
   } catch (err) {
@@ -65,6 +70,21 @@ app.get("/api/svenarudzbe", async (req, res) => {
   } catch (err) {
     return res.json({ status: "error", error: err });
   }
+});
+
+app.post("/api/isporuci", async (req, res) => {
+  // const narudzba = await Narudzbe.find({
+  //   brojNarudzbe: req.body.brojNarudzbe,
+  // });
+
+  console.log("uslo");
+  console.log(req.body.brojNarudzbe, "broj narudzbe");
+  Narudzbe.updateOne(
+    { brojNarudzbe: req.body.brojNarudzbe },
+    { $set: { isporuceno: true } }
+  );
+
+  return res.json({ status: "isporuceno" });
 });
 
 app.get("/api/cijene", async (req, res) => {
