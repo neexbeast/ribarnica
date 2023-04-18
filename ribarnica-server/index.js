@@ -93,6 +93,18 @@ app.get("/api/spremljene", async (req, res) => {
     return res.json({ status: "error", error: err });
   }
 });
+app.get("/api/pending", async (req, res) => {
+  try {
+    const narudzbe = await Narudzbe.find({
+      spremljeno: false,
+      isporuceno: false,
+    });
+    console.log("NARUDZBE", narudzbe);
+    return res.json(narudzbe);
+  } catch (err) {
+    return res.json({ status: "error", error: err });
+  }
+});
 
 app.post("/api/isporuci", async (req, res) => {
   try {

@@ -111,6 +111,17 @@ const Narudzbe = () => {
       const data = await res.json();
       console.log("data", data);
       setSveNarudzbe(data);
+    } else if (action === "pending") {
+      const res = await fetch("http://localhost:5513/api/pending", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+      console.log("data", data);
+      setSveNarudzbe(data);
     }
   };
 
@@ -135,6 +146,7 @@ const Narudzbe = () => {
         <option value="sve" selected>
           Sve
         </option>
+        <option value="pending">Za spremiti</option>
         <option value="isporucene">Isporuceno</option>
         <option value="spremljeno">Spremljeno</option>
       </select>
