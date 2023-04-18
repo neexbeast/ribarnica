@@ -71,26 +71,53 @@ app.get("/api/svenarudzbe", async (req, res) => {
     return res.json({ status: "error", error: err });
   }
 });
+app.get("/api/isporucene", async (req, res) => {
+  try {
+    const narudzbe = await Narudzbe.find({
+      isporuceno: true,
+    });
+    console.log("NARUDZBE", narudzbe);
+    return res.json(narudzbe);
+  } catch (err) {
+    return res.json({ status: "error", error: err });
+  }
+});
+app.get("/api/spremljene", async (req, res) => {
+  try {
+    const narudzbe = await Narudzbe.find({
+      spremljeno: true,
+    });
+    console.log("NARUDZBE", narudzbe);
+    return res.json(narudzbe);
+  } catch (err) {
+    return res.json({ status: "error", error: err });
+  }
+});
 
 app.post("/api/isporuci", async (req, res) => {
-  // const narudzba = await Narudzbe.find({
-  //   brojNarudzbe: req.body.brojNarudzbe,
-  // });
-
-  console.log("uslo");
-  console.log(req.body.brojNarudzbe, "broj narudzbe");
-  Narudzbe.updateOne(
-    { brojNarudzbe: req.body.brojNarudzbe },
-    { $set: { isporuceno: true } }
-  );
-
-  return res.json({ status: "isporuceno" });
+  try {
+    await Narudzbe.updateOne(
+      { brojNarudzbe: req.body.brojNarudzbe },
+      { $set: { isporuceno: true } }
+    );
+  } catch (error) {
+    console.log("ne radi,", error);
+  }
+});
+app.post("/api/spremljeno", async (req, res) => {
+  try {
+    await Narudzbe.updateOne(
+      { brojNarudzbe: req.body.brojNarudzbe },
+      { $set: { spremljeno: true } }
+    );
+  } catch (error) {
+    console.log("ne radi,", error);
+  }
 });
 
 app.get("/api/cijene", async (req, res) => {
   try {
     const cijene = await Cijene.find();
-    console.log("cijene", cijene);
     return res.json(cijene);
   } catch (err) {
     return res.json({ status: "error", error: err });
