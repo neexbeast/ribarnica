@@ -170,7 +170,6 @@ const Home = () => {
                   <DatePicker
                     // value={datum}
                     onChange={(date,e:any) => {setDatum(date!)
-                    console.log(date)
                     console.log(e)
                     }}
                     selected={datum}

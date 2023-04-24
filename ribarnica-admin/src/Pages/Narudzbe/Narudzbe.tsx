@@ -205,7 +205,9 @@ const Narudzbe = () => {
               >
                 Spremljeno
               </button>
-              <button className="bg-red-500 w-24 rounded-r">Otkazano</button>
+              <button className="bg-red-500 w-24 rounded-r"
+              onClick={() => deleteApi(el.brojNarudzbe)}
+              >Otkazano</button>
             </div>
           </div>
         ))}

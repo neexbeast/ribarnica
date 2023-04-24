@@ -116,6 +116,15 @@ app.post("/api/isporuci", async (req, res) => {
     console.log("ne radi,", error);
   }
 });
+app.post("/api/izbrisi", async (req, res) => {
+  try {
+    await Narudzbe.deleteOne(
+      { brojNarudzbe: req.body.brojNarudzbe }
+    );
+  } catch (error) {
+    console.log("ne radi,", error);
+  }
+});
 app.post("/api/spremljeno", async (req, res) => {
   try {
     await Narudzbe.updateOne(
