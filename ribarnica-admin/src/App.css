@@ -9,3 +9,7 @@
   margin-top: -41px;
   margin-right: 10px;
 }
+
+.react-datepicker-wrapper {
+  width: 144px !important
+}

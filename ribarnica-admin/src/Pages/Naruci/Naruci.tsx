@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -13,7 +15,7 @@ const Home = () => {
   const [imePrezime, setImePrezime] = useState("");
   const [cijena, setCijena] = useState("");
   const [sveCijene, setSveCijene] = useState([]);
-  const [datum, setDatum] = useState("");
+  const [datum, setDatum] = useState(new Date());
   const [vrijeme, setVrijeme] = useState("9:30");
   const [isporuceno, setIsporuceno] = useState(false);
   const [spremljeno, setSpremljeno] = useState(false);
@@ -25,9 +27,9 @@ const Home = () => {
     calculatePrice();
   }, [proizvod, kolicina, ciscenje, pecenje]);
 
-  useEffect(() => {
-    console.log("datum", datum);
-  }, [datum]);
+  // useEffect(() => {
+  //   console.log("datum", datum);
+  // }, [datum]);
 
   //TODO: Dodati date picker i upisati ga u bazu
 
@@ -165,19 +167,26 @@ const Home = () => {
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Datum
                   </label>
-                  <input
-                    type="date"
+                  <DatePicker
                     // value={datum}
-                    // since html prints the selected date as yyyy-mm-dd, i used split to break down the date and then pyyyrint them out as I like
-                    onChange={(e) => {
-                      const datum = e.target.value.split("-");
-                      const noviDatum =
-                        datum[2] + "/" + datum[1] + "/" + datum[0];
-                      setDatum(noviDatum);
-                      return datum;
+                    onChange={(date,e:any) => {setDatum(date!)
+                    console.log(date)
+                    console.log(e)
                     }}
+                    selected={datum}
+                    showTimeSelect
+                    // since html prints the selected date as yyyy-mm-dd, i used split to break down the date and then pyyyrint them out as I like
+                    minDate={new Date()}
+                    dateFormat='dd/MM/yyyy'
+                    // onChange={(e:any) => {
+                    //   const datum = e.target.value.split("-");
+                    //   const noviDatum =
+                    //     datum[2] + "/" + datum[1] + "/" + datum[0];
+                    //   setDatum(noviDatum);
+                      // return datum;
+                    // }}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-50  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Select date"
+                    // placeholder="Select date"
                   />
                 </div>
                 <div>
@@ -229,10 +238,10 @@ const Home = () => {
                   />
                 </div>
               </div>
-              <div className="text-white text-sm">Cijena = {cijena} KM</div>
+              <div className="text-slate-600 text-sm dark:text-white ">Cijena = {cijena} KM</div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  bg-slate-600 font-medium  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Naruci
               </button>
