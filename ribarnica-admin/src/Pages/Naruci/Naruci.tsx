@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 
@@ -168,41 +168,26 @@ const Home = () => {
                     Datum
                   </label>
                   <DatePicker
-                    // value={datum}
-                    onChange={(date,e:any) => {setDatum(date!)
-                    console.log(e)
+                    onChange={(date, e: any) => {
+                      const onlyTime: any = date
+                        ?.toLocaleString()
+                        .split(",")[1].split(':', 2).join(':');
+                        console.log('only time', onlyTime)
+                      const onlyDate: any = date?.toLocaleDateString();
+                      const convertedDate = new Date(onlyDate);
+                      setDatum(date!);
+                      setVrijeme(onlyTime);
+
+                      // setDatum(formattedDate!)
+                      // console.log(date?.toLocaleString())
                     }}
                     selected={datum}
                     showTimeSelect
-                    // since html prints the selected date as yyyy-mm-dd, i used split to break down the date and then pyyyrint them out as I like
                     minDate={new Date()}
-                    dateFormat='dd/MM/yyyy'
-                    // onChange={(e:any) => {
-                    //   const datum = e.target.value.split("-");
-                    //   const noviDatum =
-                    //     datum[2] + "/" + datum[1] + "/" + datum[0];
-                    //   setDatum(noviDatum);
-                      // return datum;
-                    // }}
+                    dateFormat="dd/MM/yyyy HH:mm"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-50  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     // placeholder="Select date"
                   />
-                </div>
-                <div>
-                  <label className="block mb-2 ml-20 text-sm font-medium text-gray-900 dark:text-white">
-                    Vrijeme
-                  </label>
-                  <select
-                    className="bg-gray-50 border border-gray-300 ml-20 w-40 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-50  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Select date"
-                    value={vrijeme}
-                    onChange={(e) => setVrijeme(e.target.value)}
-                  >
-                    <option value="9:00">9:00</option>
-                    <option value="9:30">9:30</option>
-                    <option value="10:00">10:00</option>
-                    <option value="10:30">10:30</option>
-                  </select>
                 </div>
               </div>
               <div className="flex items-start">
@@ -237,7 +222,9 @@ const Home = () => {
                   />
                 </div>
               </div>
-              <div className="text-slate-600 text-sm dark:text-white ">Cijena = {cijena} KM</div>
+              <div className="text-slate-600 text-sm dark:text-white ">
+                Cijena = {cijena} KM
+              </div>
               <button
                 type="submit"
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300  bg-slate-600 font-medium  rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
